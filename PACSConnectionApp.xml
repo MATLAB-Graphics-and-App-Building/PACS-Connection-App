@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<MATLABApp schemaVersion='1.0.0' release='R2027a.0' minRelease='R2026b'>
+    <UIFigure name='MainFigure'>
+        <CloseRequestFcn>onCloseRequest</CloseRequestFcn>
+        <Name>'PACS Connection App'</Name>
+        <Position>[100 100 859 718]</Position>
+        <Children>
+            <GridLayout name='MainGridLayout'>
+                <ColumnWidth>{'1x'}</ColumnWidth>
+                <RowHeight>{'1x'}</RowHeight>
+                <Children>
+                    <TabGroup name='TabGroup'>
+                        <Layout>
+                            <Column>1</Column>
+                            <Row>1</Row>
+                        </Layout>
+                        <Children>
+                            <Tab name='ConfigurationTab'>
+                                <Title>'Configuration'</Title>
+                                <Children>
+                                    <GridLayout name='ConfigurationGridLayout'>
+                                        <ColumnWidth>{'fit', 'fit', 10, 'fit', 'fit', 'fit', 'fit', 'fit'}</ColumnWidth>
+                                        <Padding>[20 20 20 20]</Padding>
+                                        <RowHeight>{'fit', 'fit', 'fit', 'fit', 'fit', 'fit', 'fit', 15, 'fit'}</RowHeight>
+                                        <Children>
+                                            <Label name='SelectorcreatePACSserverLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>1</Row>
+                                                </Layout>
+                                                <Text>'Select or create PACS server'</Text>
+                                            </Label>
+                                            <DropDown name='ServerSelectionDropDown' label='SelectorcreatePACSserverLabel'>
+                                                <Items>{}</Items>
+                                                <Layout>
+                                                    <Column>2</Column>
+                                                    <Row>1</Row>
+                                                </Layout>
+                                                <Value>{}</Value>
+                                                <ValueChangedFcn>onServerSelectionChanged</ValueChangedFcn>
+                                            </DropDown>
+                                            <Label name='MyAETitleEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>4</Column>
+                                                    <Row>1</Row>
+                                                </Layout>
+                                                <Text>'My AE Title:'</Text>
+                                                <Tooltip>'Client Application Entity Title'</Tooltip>
+                                            </Label>
+                                            <EditField name='ClientAETitleEditField' label='MyAETitleEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>[5 7]</Column>
+                                                    <Row>1</Row>
+                                                </Layout>
+                                                <Value>'MATLAB_QR'</Value>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <Button name='SaveServerButton'>
+                                                <ButtonPushedFcn>saveCurrentServerConfiguration</ButtonPushedFcn>
+                                                <Layout>
+                                                    <Column>5</Column>
+                                                    <Row>9</Row>
+                                                </Layout>
+                                                <Text>'Save'</Text>
+                                            </Button>
+                                            <Button name='DeleteServerButton'>
+                                                <ButtonPushedFcn>deleteCurrentServerConfiguration</ButtonPushedFcn>
+                                                <Enable>'off'</Enable>
+                                                <Layout>
+                                                    <Column>6</Column>
+                                                    <Row>9</Row>
+                                                </Layout>
+                                                <Text>'Delete'</Text>
+                                            </Button>
+                                            <Button name='ConnectButton'>
+                                                <ButtonPushedFcn>togglePACSConnection</ButtonPushedFcn>
+                                                <Enable>'off'</Enable>
+                                                <Layout>
+                                                    <Column>7</Column>
+                                                    <Row>9</Row>
+                                                </Layout>
+                                                <Text>'Connect'</Text>
+                                            </Button>
+                                            <Label name='IPaddressEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>2</Row>
+                                                </Layout>
+                                                <Text>'IP address'</Text>
+                                            </Label>
+                                            <EditField name='HostIPAddressEditField' label='IPaddressEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>2</Column>
+                                                    <Row>2</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <Label name='PortEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>4</Column>
+                                                    <Row>2</Row>
+                                                </Layout>
+                                                <Text>'Port'</Text>
+                                            </Label>
+                                            <NumericEditField name='PortNumberEditField' label='PortEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>[5 7]</Column>
+                                                    <Row>2</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </NumericEditField>
+                                            <Label name='ServerNameEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>3</Row>
+                                                </Layout>
+                                                <Text>'Server Name'</Text>
+                                            </Label>
+                                            <EditField name='ServerNameEditField' label='ServerNameEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>2</Column>
+                                                    <Row>3</Row>
+                                                </Layout>
+                                            </EditField>
+                                            <Label name='KeyEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>5</Row>
+                                                </Layout>
+                                                <Text>'Key'</Text>
+                                            </Label>
+                                            <EditField name='TLSKeyFileEditField' label='KeyEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>[2 5]</Column>
+                                                    <Row>5</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <Label name='CertificateEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>6</Row>
+                                                </Layout>
+                                                <Text>'Certificate'</Text>
+                                            </Label>
+                                            <EditField name='TLSCertificateEditField' label='CertificateEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>[2 5]</Column>
+                                                    <Row>6</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <Label name='EditField6Label'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>7</Row>
+                                                </Layout>
+                                                <Text>'Trusted Certificate'</Text>
+                                            </Label>
+                                            <EditField name='TLSTrustedCertEditField' label='EditField6Label'>
+                                                <Layout>
+                                                    <Column>[2 5]</Column>
+                                                    <Row>7</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <CheckBox name='EnableTLSCheckBox'>
+                                                <Layout>
+                                                    <Column>2</Column>
+                                                    <Row>4</Row>
+                                                </Layout>
+                                                <Text>''</Text>
+                                                <Value>true</Value>
+                                                <ValueChangedFcn>onTLSEnabledChanged</ValueChangedFcn>
+                                            </CheckBox>
+                                            <Label name='ConnectionStatusIcon'>
+                                                <Layout>
+                                                    <Column>8</Column>
+                                                    <Row>9</Row>
+                                                </Layout>
+                                                <Text>'✅'</Text>
+                                                <Visible>'off'</Visible>
+                                            </Label>
+                                            <Label name='PACSAETitleEditFieldLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>4</Column>
+                                                    <Row>3</Row>
+                                                </Layout>
+                                                <Text>'PACS AE Title'</Text>
+                                            </Label>
+                                            <EditField name='ServerAETitleEditField' label='PACSAETitleEditFieldLabel'>
+                                                <Layout>
+                                                    <Column>[5 7]</Column>
+                                                    <Row>3</Row>
+                                                </Layout>
+                                                <ValueChangedFcn>onConnectionParameterChanged</ValueChangedFcn>
+                                            </EditField>
+                                            <Label name='EnableTLSLabel'>
+                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>4</Row>
+                                                </Layout>
+                                                <Text>'Enable Transport Layer Security (TLS)'</Text>
+                                            </Label>
+                                            <Button name='TLSKeyBrowseButton'>
+                                                <ButtonPushedFcn>browseTLSKeyFile</ButtonPushedFcn>
+                                                <Layout>
+                                                    <Column>6</Column>
+                                                    <Row>5</Row>
+                                                </Layout>
+                                                <Text>'Browse'</Text>
+                                            </Button>
+                                            <Button name='TLSCertBrowseButton'>
+                                                <ButtonPushedFcn>browseTLSCertificateFile</ButtonPushedFcn>
+                                                <Layout>
+                                                    <Column>6</Column>
+                                                    <Row>6</Row>
+                                                </Layout>
+                                                <Text>'Browse'</Text>
+                                            </Button>
+                                            <Button name='TLSTrustedCertBrowseBtn'>
+                                                <ButtonPushedFcn>browseTLSTrustedCertFile</ButtonPushedFcn>
+                                                <Layout>
+                                                    <Column>6</Column>
+                                                    <Row>7</Row>
+                                                </Layout>
+                                                <Text>'Browse'</Text>
+                                            </Button>
+                                        </Children>
+                                    </GridLayout>
+                                </Children>
+                            </Tab>
+                            <Tab name='QueryRetrieveTab'>
+                                <Title>'Query/Retrieve'</Title>
+                                <Children>
+                                    <GridLayout name='QueryRetrieveGridLayout'>
+                                        <ColumnWidth>{'1x'}</ColumnWidth>
+                                        <Children>
+                                            <Panel name='QueryPanel'>
+                                                <BorderType>'none'</BorderType>
+                                                <FontSize>16</FontSize>
+                                                <FontWeight>'bold'</FontWeight>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>1</Row>
+                                                </Layout>
+                                                <Title>'Query'</Title>
+                                                <Children>
+                                                    <GridLayout name='QueryGridLayout'>
+                                                        <ColumnWidth>{'fit', 'fit', 'fit', '1x', 'fit', 'fit', 'fit'}</ColumnWidth>
+                                                        <RowHeight>{'fit', '1x', 'fit'}</RowHeight>
+                                                        <Children>
+                                                            <DropDown name='DateRangeDropDown'>
+                                                                <Items>{'All Dates', 'Custom Range'}</Items>
+                                                                <Layout>
+                                                                    <Column>1</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                                <Value>'All Dates'</Value>
+                                                                <ValueChangedFcn>onDateRangeSelectionChanged</ValueChangedFcn>
+                                                            </DropDown>
+                                                            <DatePicker name='StartDatePicker'>
+                                                                <DisplayFormat>'yyyy-MM-dd'</DisplayFormat>
+                                                                <Enable>'off'</Enable>
+                                                                <Layout>
+                                                                    <Column>2</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                            </DatePicker>
+                                                            <DatePicker name='EndDatePicker'>
+                                                                <DisplayFormat>'yyyy-MM-dd'</DisplayFormat>
+                                                                <Enable>'off'</Enable>
+                                                                <Layout>
+                                                                    <Column>3</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                            </DatePicker>
+                                                            <DropDown name='CommonFieldsDropDown'>
+                                                                <Layout>
+                                                                    <Column>5</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                                <ValueChangedFcn>onCommonFieldSelected</ValueChangedFcn>
+                                                            </DropDown>
+                                                            <Button name='AddFieldButton'>
+                                                                <ButtonPushedFcn>addFieldToQueryTable</ButtonPushedFcn>
+                                                                <Layout>
+                                                                    <Column>6</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                                <Text>'Add'</Text>
+                                                                <Tooltip>'Add field to table'</Tooltip>
+                                                            </Button>
+                                                            <Button name='ClearTableButton'>
+                                                                <ButtonPushedFcn>clearQueryParametersTable</ButtonPushedFcn>
+                                                                <Layout>
+                                                                    <Column>7</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                                <Text>'Delete All'</Text>
+                                                                <Tooltip>'Delete all fields'</Tooltip>
+                                                            </Button>
+                                                            <Table name='QueryParametersTable'>
+                                                                <ColumnEditable>[true true]</ColumnEditable>
+                                                                <ColumnName>{'Field'; 'Value'}</ColumnName>
+                                                                <ContextMenu>ContextMenu</ContextMenu>
+                                                                <Layout>
+                                                                    <Column>[1 7]</Column>
+                                                                    <Row>2</Row>
+                                                                </Layout>
+                                                                <RowName>{}</RowName>
+                                                            </Table>
+                                                            <Button name='RunQueryButton'>
+                                                                <ButtonPushedFcn>executeQueryOnPACS</ButtonPushedFcn>
+                                                                <Layout>
+                                                                    <Column>[6 7]</Column>
+                                                                    <Row>3</Row>
+                                                                </Layout>
+                                                                <Text>'Run Query'</Text>
+                                                                <Tooltip>'Send Query request to PACS'</Tooltip>
+                                                            </Button>
+                                                            <Label name='RegistryLabel'>
+                                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                                <Interpreter>'html'</Interpreter>
+                                                                <Layout>
+                                                                    <Column>[4 5]</Column>
+                                                                    <Row>3</Row>
+                                                                </Layout>
+                                                                <Text>'&lt;html&gt;&lt;a href="https://in.mathworks.com/help/medical-imaging/ref/dicomconnection.dicomquery.html#mw_8a7cb5db-91be-4c7b-91a6-8389a3b24e83"&gt;Registry of DICOM Data Elements&lt;/a&gt;&lt;/html&gt;'</Text>
+                                                            </Label>
+                                                        </Children>
+                                                    </GridLayout>
+                                                </Children>
+                                            </Panel>
+                                            <Panel name='RetrievePanel'>
+                                                <BorderType>'none'</BorderType>
+                                                <FontSize>16</FontSize>
+                                                <FontWeight>'bold'</FontWeight>
+                                                <Layout>
+                                                    <Column>1</Column>
+                                                    <Row>2</Row>
+                                                </Layout>
+                                                <Title>'Retrieve'</Title>
+                                                <Children>
+                                                    <GridLayout name='RetrieveGridLayout'>
+                                                        <ColumnWidth>{'fit', 'fit', 'fit', '1x', 'fit', 'fit'}</ColumnWidth>
+                                                        <RowHeight>{'1x', 'fit'}</RowHeight>
+                                                        <RowSpacing>5</RowSpacing>
+                                                        <Children>
+                                                            <Table name='QueryResultsTable'>
+                                                                <ColumnName>''</ColumnName>
+                                                                <ColumnSortable>true</ColumnSortable>
+                                                                <Layout>
+                                                                    <Column>[1 6]</Column>
+                                                                    <Row>1</Row>
+                                                                </Layout>
+                                                                <Multiselect>'off'</Multiselect>
+                                                                <RowName>{}</RowName>
+                                                                <SelectionChangedFcn>onQueryResultSelected</SelectionChangedFcn>
+                                                                <SelectionType>'row'</SelectionType>
+                                                            </Table>
+                                                            <Label name='StorageDirEditFieldLabel'>
+                                                                <HorizontalAlignment>'right'</HorizontalAlignment>
+                                                                <Layout>
+                                                                    <Column>1</Column>
+                                                                    <Row>2</Row>
+                                                                </Layout>
+                                                                <Text>'Storage Directory:'</Text>
+                                                            </Label>
+                                                            <EditField name='StorageDirEditField' label='StorageDirEditFieldLabel'>
+                                                                <Layout>
+                                                                    <Column>2</Column>
+                                                                    <Row>2</Row>
+                                                                </Layout>
+                                                            </EditField>
+                                                            <Button name='StorageDirBrowseButton'>
+                                                                <ButtonPushedFcn>browseStorageDirectory</ButtonPushedFcn>
+                                                                <Layout>
+                                                                    <Column>3</Column>
+                                                                    <Row>2</Row>
+                                                                </Layout>
+                                                                <Text>'Browse'</Text>
+                                                            </Button>
+                                                            <Button name='DownloadOrImportButton'>
+                                                                <ButtonPushedFcn>downloadOrImportSelectedData</ButtonPushedFcn>
+                                                                <Enable>'off'</Enable>
+                                                                <Layout>
+                                                                    <Column>6</Column>
+                                                                    <Row>2</Row>
+                                                                </Layout>
+                                                                <Text>'Download'</Text>
+                                                                <Tooltip>'Download the data to storage directory'</Tooltip>
+                                                            </Button>
+                                                        </Children>
+                                                    </GridLayout>
+                                                </Children>
+                                            </Panel>
+                                        </Children>
+                                    </GridLayout>
+                                </Children>
+                            </Tab>
+                        </Children>
+                    </TabGroup>
+                </Children>
+            </GridLayout>
+            <ContextMenu name='ContextMenu'>
+                <Children>
+                    <Menu name='DeleteFieldMenu'>
+                        <MenuSelectedFcn>deleteQueryParameterRow</MenuSelectedFcn>
+                        <Text>'Delete Field'</Text>
+                    </Menu>
+                </Children>
+            </ContextMenu>
+        </Children>
+    </UIFigure>
+    <RunConfiguration>
+        <StartupFcn>startupFcn</StartupFcn>
+    </RunConfiguration>
+    <AppDetails>
+        <Name>PACS Connection App</Name>
+        <Version>1.0</Version>
+    </AppDetails>
+    <InternalData>
+        <AppId>3a7ce3bb-3050-40da-9e7c-6810933e82bc</AppId>
+    </InternalData>
+    <!-- Thumbnail is used by file previewers. To change how the thumbnail is captured or stored, use the App Details dialog box in App Designer. -->
+    <Thumbnail autoCapture='true'></Thumbnail>
+</MATLABApp>
